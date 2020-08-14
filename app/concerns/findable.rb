@@ -1,16 +1,11 @@
-module Concerns::Findable
-  def find_by_name(label)
-    all.find do |nm|
-      nm.name == label
+module Concerns
+  module Findable
+    def find_by_name(name)
+      self.all.detect {|item| item.name == name}
     end
-  end
 
-  def find_or_create_by_name(label)
-    object = find_by_name(label)
-    if object == nil
-      create(label)
-    else
-      object
+    def find_or_create_by_name(name)
+      self.find_by_name(name) || self.create(name)
     end
   end
 end
